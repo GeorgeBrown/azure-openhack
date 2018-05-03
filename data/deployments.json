@@ -1,0 +1,42 @@
+{
+   "apiVersion": "apps/v1beta1",
+   "kind": "Deployment",
+   "metadata": {
+      "name": "minecraft2-turner-back"
+   },
+   "spec": {
+      "replicas": 1,
+      "template": {
+         "metadata": {
+            "labels": {
+               "app": "minecraft-turner-back"
+            }
+         },
+         "spec": {
+            "volumes": null,
+            "containers": [
+               {
+                  "name": "minecraft-turner-back",
+                  "image": "openhack/minecraft-server:2.0",
+                  "env": [
+                     {
+                        "name": "EULA",
+                        "value": "TRUE"
+                     }
+                  ],
+                  "ports": [
+                     {
+                        "containerPort": 25565,
+                        "name": "minecraft"
+                     },
+                     {
+                        "containerPort": 25575,
+                        "name": "microsoft"
+                     }
+                  ]
+               }
+            ]
+         }
+      }
+   }
+}

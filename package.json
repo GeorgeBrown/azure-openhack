@@ -1,5 +1,5 @@
 {
-  "name": "node-kubernetes-client",
+  "name": "node-kubernetes-client-turner",
   "version": "0.3.2",
   "description": "Kubernetes client of Node.js",
   "main": "index.js",
@@ -27,8 +27,15 @@
     "form-data": "^2.2.0",
     "glob": "*",
     "json-gate": "^0.8.21",
-    "request": "^2.81.0",
-    "sugar": "^1.5.0"
+    "node-kubernetes-client": "^0.3.2",
+    "request": "^2.83.0",
+    "sugar": "^1.5.0",
+    "shortid": "*",
+    "express": "^4.13.4",
+    "forever": "0.15.3",
+    "forever-monitor": "1.7.1",
+    "jsonfile": "4.0.0",
+    "lodash": "^4.13.1"
   },
   "devDependencies": {
     "mocha": "^3.0",

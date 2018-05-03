@@ -1,0 +1,48 @@
+apiVersion: apps/v1beta1
+kind: Deployment
+metadata:
+  name: minecraft-turner-back
+spec:
+  replicas: 1
+  template:
+    metadata:
+      labels:
+        app: minecraft-turner-back
+    spec:
+      volumes:
+      containers:
+      - name: minecraft-turner-back
+        image: openhack/minecraft-server:2.0
+        env:
+        - name: EULA
+          value: "TRUE"
+        ports:
+        - containerPort: 25565
+          name: minecraft
+        - containerPort: 25575
+          name: microsoft
+        volumeMounts:
+        - name: azure
+          mountPath: /data
+      volumes:
+      - name: azure
+        azureDisk:
+          kind: Managed
+          diskName: iamturner3disk2
+          diskURI: /subscriptions/198f6261-7bf6-41f8-997e-a9e09ea1f82a/resourceGroups/MC_iamturner3_AKSCluster-turner_eastus/providers/Microsoft.Compute/disks/iamturner3disk2
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: minecraft-turner-back
+spec:
+  type: LoadBalancer
+  ports:
+  - port: 25565
+    targetPort: 25565
+    name: minecraft
+  - port: 25575
+    targetPort: 25575
+    name: microsoft
+  selector:
+    app: minecraft-turner-back

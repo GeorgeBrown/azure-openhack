@@ -1,0 +1,39 @@
+apiVersion: apps/v1beta1
+kind: Deployment
+metadata:
+  name: minecraft-turner-back
+spec:
+  replicas: 1
+  template:
+    metadata:
+      labels:
+        app: minecraft-turner-back
+    spec:
+      volumes:
+      containers:
+      - name: minecraft-turner-back
+        image: openhack/minecraft-server:2.0
+        env:
+        - name: EULA
+          value: "TRUE"
+        ports:
+        - containerPort: 25565
+          name: minecraft
+        - containerPort: 25575
+          name: microsoft
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: minecraft-turner-back
+spec:
+  type: LoadBalancer
+  ports:
+  - port: 25565
+    targetPort: 25565
+    name: minecraft
+  - port: 25575
+    targetPort: 25575
+    name: microsoft
+  selector:
+    app: minecraft-turner-back
